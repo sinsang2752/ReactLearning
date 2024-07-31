@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <!-- script type="module" 이면 HTML문서가 완전히 준비되면 수행된다. -->
+    <script type="module">
+        console.dir(btn1);
+    </script>
+    <script type="module" src="./go.js"></script>
+    <script type="module" src="./go2.js"></script>
+    
+<body>
+    <h1>JavaScript연습</h1>
+    <button id="btn1">버튼1</button>
+    <div id="here">여기</div>
+    <div id="here2">여기</div>
+
+
+    <script>
+        const promise1 = new Promise(function(resolve, reject) {
+            setTimeout(() => {
+                resolve("성공~~~");
+
+            }, 500);
+        });
+
+        promise1.then(function(res) {
+            console.log(res);
+        });
+
+    </script>
+
+    <script>
+        const numbersOne = [1, 2, 3];
+        const numbersTwo = [4, 5, 6];
+        const numbersThree = [numbersOne, numbersTwo];
+        const numbersCombined = [...numbersOne, ...numbersTwo];
+        console.log(numbersThree);
+        console.log(numbersCombined);
+
+        const numbers = [1, 2, 3, 4, 5, 6];
+        const [one, two, ...rest] = numbers;
+        console.log(one, two, rest);
+
+        const v10 = { brand: 'Ford', model: 'Mustang',  color: 'red' };
+        const v20 = {  type: 'car',  year: 2021,   color: 'yellow' };
+        const v30 = {"aa" : v10, "bb" : v20};
+        const myUpdatedCars = {...v10, ...v20};
+        console.log(v10);
+        console.log(v20);
+        console.log(v30);
+        console.log(myUpdatedCars);
+
+    </script>
+
+    <script>
+        var student = {name: "신윤철", score:100};
+        var {name, score} = student;
+        console.log("학생의 이름은: " + name);
+        console.log("학생의 점수는: " + score);
+    </script>
+
+    <script>
+        const obj = { brand: 'Ford', 
+            model: 'Mustang', 
+            type: 'car', 
+            year: 2021, 
+            color: 'red',
+            registration: { city: "Houston", 
+                            state: "Texas", 
+                            country: "USA"}
+        }
+
+        myCarInfo(obj);
+        function myCarInfo(car) {
+            const message = 'My ' 
+            + car.type + ' is a '  + car.color + ' '   + car.brand + ' '  + car.model + '.';
+            document.getElementById("here2").innerHTML = message;
+            console.log(message);
+        }
+
+        myCarInfo2(obj);
+        function myCarInfo2 ({ model:mm, brand, registration:{state, country, city:cc}}) {
+            const message = 'My ' + mm + ' is registered in ' + state + '.' + " country= " + country + " city: " + cc + " brand: " + brand;
+            document.getElementById("here2").innerHTML = message;
+            console.log(message);
+        }
+
+    </script>
+    
+    <script>
+        const arr= ['BMW520', '포터2', 'Discovery'];
+        // old way
+        const car = arr[0];
+        const truck = arr[1];
+        const suv = arr[2];
+        //
+
+        const [car2, truck2, suv2] = arr;
+        console.log(car2, truck2, suv2);
+        const [add, subtract, multiply, divide] =  calculate(10, 3);
+        console.log(add, subtract, multiply, divide);
+        
+        function calculate(a, b) {
+            const add = a + b;
+            const subtract = a - b;
+            const multiply = a * b;
+            const divide = a / b;
+        
+            return [add, subtract, multiply, divide];
+        }
+
+    </script>
+    
+    <script>
+        const myArray = ['apple', 'banana', 'orange'];
+        const myList = myArray.map((item) => "<p>" + item + "</p>");
+        console.log(myList);
+        document.getElementById("here").innerHTML = myList.join().replaceAll(",", "<hr/>");
+    </script>
+
+    <script>
+        // this 연습
+        class Header {
+            constructor() { this.color = "Red";  }
+
+                changeColor = function( e ) {
+                    const hereObj = document.getElementById("here");
+                    if(this == window)
+                        hereObj.style.backgroundColor="orange";
+                    else if(this.nodeName == "BUTTON")
+                        hereObj.style.backgroundColor="lightgreen";
+
+                    hereObj.innerHTML += this;  console.dir(this);
+                    e.stopPropagation( );  //이벤트의 전파를 막기
+                }
+            }
+        
+        const myheader = new Header();
+        window.addEventListener("click", myheader.changeColor); //callback
+        document.getElementById("btn1").addEventListener("click", myheader.changeColor);    //callback 
+
+    </script>
+
+    <script>
+        class Shape{
+            constructor(name) { 
+                this.model = name; //생성시마다 메서드 추가
+                this.draw = function(){ console.log(this.model + "~~그리다....")};
+                this.draw2 = function() {
+                    console.log(this.model + "~~ 그리다... draw2")
+                };
+            };
+
+            
+
+            // 프로토타입 메서드
+            display() {
+                return "나는" + this.model;
+            };
+        }
+
+        const  myshape = new Shape("도형");
+        console.log(myshape);
+        myshape.draw();
+        myshape.draw2();
+        console.log(myshape.display());
+
+        class Rectangle extends Shape {
+            constructor(name, width, height) {
+                super(name);
+                this.width = width;
+                this.height = height;
+            }  
+            show() {
+                return this.display() +" ,width= " + this.width  +" ,height=" + this.height;            
+            }
+        }
+        const myshape2 = new Rectangle("사각형(자식이 부모를 통해 초기화)", 10, 20);
+        console.log(myshape2.show());
+
+    </script>
+
+    <script>
+        // 익명함수, 즉시 실행 함수, 화살표 함수
+        // (function() {
+        //     console.log("익명함수... 즉시실행함수");
+        // })
+        // var f1 = function() {
+        //     console.log("익명함수..liter에 할당");
+        // };
+        // var f2 = () => {console.log("익명함수..liter에 할당... 화살표 함수");};
+
+        // function f3() {
+        //     console.log("선언적 함수..");
+        // }
+
+        // f1();
+        // f2();
+        // f3();
+    </script>
+
+    <script>
+        // const MyWork1 = function() {console.log("리엑트 시작~~~~~~~~");};
+        // const MyWork2 = () => {console.log("리엑트 시작~~~~~~~~");};
+
+        // MyWork2();
+        // setInterval(MyWork1, 1000);
+
+        // // 매개변수가 함수이다.
+        // function f2(count, callback) {
+        //     for(let index=0; index<count; index++) {
+        //         callback(index + 1);    // 함수 호출
+        //     }
+        // }
+
+        // var myFunction = function(param) {console.log(param);}
+
+        // f2(3, myFunction);  //함수를 전달
+    </script>
+
+    <script>
+        // 호이스팅 : var, function들을 맨 위로 올린다.
+        f1();
+        var v1 = 100;
+        function f1() {}
+    </script>
+
+    <script>
+        function call() {
+            var a = 10;   // var는 지역변수, 함수내에 있으면 외부 접근 불기
+            let b = 20;   // let는 block 에서만 유효
+            const c = 30;   //상수는 수정 불가
+            // c=40; 
+        }
+    </script>
+</body>
+</html>
