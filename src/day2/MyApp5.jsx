@@ -1,10 +1,9 @@
-import React from 'react';
-import StateFunctionComponent from './StateFunctionComponent';
+import StateStudentComponent from './StateStudentComponent';
 
 function MyApp5(props) {
     return (
         <div>
-            <StateFunctionComponent></StateFunctionComponent>
+            <StateStudentComponent></StateStudentComponent>
         </div>
     );
 }
