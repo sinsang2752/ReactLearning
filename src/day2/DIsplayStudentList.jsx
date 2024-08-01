@@ -7,10 +7,10 @@ function DIsplayStudentList(props) {
     <div>
       {studentList.map((item, idx) => (
         <Card style={{ width: "18rem", display: "inline-block" }} key={idx}>
-          <Card.Header>{item.stdId}</Card.Header>
+          <Card.Header>{item.name}</Card.Header>
           <Card.Body>
-            <Card.Title>{item.stdName}</Card.Title>
-            <Card.Text>학생의 전공은 {item.major}</Card.Text>
+            <Card.Title>{item.age}</Card.Title>
+            <Card.Text>학생의 전공은 {item.email}</Card.Text>
           </Card.Body>
         </Card>
       ))}
